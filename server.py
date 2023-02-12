@@ -22,8 +22,6 @@ async def wshandler(request: web.Request):
 
     try:
         print("Someone joined.")
-        #for ws in request.app["sockets"]: #
-        #    await ws.send_str("Someone joined") #
         request.app["sockets"].append(resp)
 
         async for msg in resp:
@@ -38,9 +36,6 @@ async def wshandler(request: web.Request):
     finally:
         request.app["sockets"].remove(resp)
         print("Someone disconnected.")
-        #for ws in request.app["sockets"]: 
-        #    await ws.send_str("Someone disconnected.") 
-
 
 async def on_shutdown(app: web.Application):
     for ws in app["sockets"]:
